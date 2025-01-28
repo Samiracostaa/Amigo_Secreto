@@ -1,66 +1,81 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
+// =========================
+// DESAFIO: Lista de Amigos
+// Objetivo: Desenvolver lógica de programação para gerenciar uma lista de amigos e sortear um deles aleatoriamente.
+// =========================
 
-// Lista para armazenar os nomes dos amigos
+// Variável para armazenar os nomes dos amigos
 let amigos = [];
 
-// Função para adicionar um amigo à lista
+// =========================
+// Função: Adicionar Amigo
+// Objetivo: Adiciona um amigo à lista, verificando duplicatas e campos vazios.
+// =========================
 function adicionarAmigo() {
-  const amigoInput = document.getElementById("amigo").value.trim(); // Obtém o nome digitado e remove espaços extras
+  const amigoInput = document.getElementById("amigo").value.trim(); // Obtém o valor do campo de entrada e remove espaços em branco.
 
-  // Verifica se o campo está vazio
+  // Validação: Checar se o campo está vazio
   if (amigoInput === "") {
-    alert("Por favor, insira um nome");
-    return; // Interrompe a função se o campo estiver vazio
+    alert("Por favor, insira um nome"); // Alerta caso o campo esteja vazio
+    return; // Encerra a execução da função
   }
 
-  // Verifica se o nome já está na lista
+  // Validação: Evitar duplicatas na lista
   if (amigos.includes(amigoInput)) {
-    alert("Este amigo já foi adicionado!");
-    return; // Interrompe a função se o nome já existir na lista
+    alert("Este amigo já foi adicionado!"); // Alerta se o nome já está na lista
+    return; // Encerra a execução da função
   }
 
-  // Adiciona o amigo à lista e atualiza a interface
+  // Adiciona o nome à lista, limpa o campo de entrada e atualiza a exibição da lista
   amigos.push(amigoInput);
-  limparEntrada(); // Limpa o campo de entrada
-  mostrarAmigos(); // Atualiza a exibição da lista
+  limparEntrada(); // Reseta o campo de texto para entrada
+  mostrarAmigos(); // Atualiza a interface com a nova lista de amigos
 }
 
-// Função para limpar o campo de entrada
+// =========================
+// Função: Limpar Entrada
+// Objetivo: Reseta o campo de entrada do formulário.
+// =========================
 function limparEntrada() {
-  document.getElementById("amigo").value = ""; // Reseta o campo de texto
+  document.getElementById("amigo").value = ""; // Define o campo de texto como vazio
 }
 
-// Função para exibir a lista de amigos na interface
+// =========================
+// Função: Mostrar Amigos
+// Objetivo: Exibe a lista de amigos na interface.
+// =========================
 function mostrarAmigos() {
-  const listaAmigos = document.getElementById("listaAmigos"); // Seleciona o elemento onde a lista será exibida
-  listaAmigos.innerHTML = ""; // Limpa a lista para evitar duplicações
+  const listaAmigos = document.getElementById("listaAmigos"); // Seleciona o elemento HTML da lista
+  listaAmigos.innerHTML = ""; // Reseta o conteúdo do elemento para evitar duplicações
 
-  // Adiciona cada amigo como um item da lista
-  for (let i = 0; i < amigos.length; i++) {
-    const li = document.createElement("li"); // Cria um elemento de lista (<li>)
-    li.textContent = amigos[i]; // Define o texto como o nome do amigo
-    listaAmigos.appendChild(li); // Insere o item na lista visível
-  }
+  // Cria e adiciona um item de lista (<li>) para cada amigo
+  amigos.forEach((amigo) => {
+    const li = document.createElement("li"); // Cria um novo elemento de lista
+    li.textContent = amigo; // Define o conteúdo como o nome do amigo
+    listaAmigos.appendChild(li); // Adiciona o item à lista exibida
+  });
 }
 
-// Função para sortear um amigo aleatoriamente
+// =========================
+// Função: Sortear Amigo
+// Objetivo: Seleciona aleatoriamente um amigo da lista e exibe o resultado.
+// =========================
 function sortearAmigo() {
-  // Verifica se a lista de amigos está vazia
+  // Validação: Verificar se há amigos na lista
   if (amigos.length === 0) {
-    alert("Por favor, adicione um amigo antes de sortear");
-    return; // Interrompe a função se não houver amigos
+    alert("Por favor, adicione um amigo antes de sortear"); // Alerta caso a lista esteja vazia
+    return; // Encerra a execução da função
   }
 
-  // Sorteia um índice aleatório da lista
+  // Sorteio: Gera um índice aleatório com base no tamanho da lista
   const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-  const amigoSorteado = amigos[indiceAleatorio]; // Obtém o nome correspondente ao índice sorteado
+  const amigoSorteado = amigos[indiceAleatorio]; // Obtém o amigo correspondente ao índice sorteado
 
-  // Exibe o amigo sorteado na interface
+  // Exibe o resultado do sorteio
   document.getElementById("resultado").innerHTML =
-  "Amigo sorteado: " + amigoSorteado;
+    "Amigo sorteado: " + amigoSorteado;
 
-  // Reinicia a lista e limpa a interface
-  amigos = []; // Reseta a lista de amigos
+  // Reseta a lista e atualiza a interface
+  amigos = []; // Limpa a lista de amigos
   document.getElementById("listaAmigos").innerHTML = ""; // Limpa a exibição da lista
-  limparEntrada(); // Limpa o campo de entrada
+  limparEntrada(); // Reseta o campo de entrada
 }
